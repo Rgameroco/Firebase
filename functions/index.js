@@ -7,7 +7,7 @@ admin.initializeApp();
 const database = admin.database().ref("/items");
 
 exports.helloWorld = functions.https.onRequest((request, response) => {
-  response.send("Bienvenido a tu serveless!!");
+  response.send("Hello from a Severless Database!");
 });
 
 exports.addItem = functions.https.onRequest((req, res) => {
@@ -18,18 +18,23 @@ exports.addItem = functions.https.onRequest((req, res) => {
       });
     }
     console.log(req.body);
+
     const item = req.body.item;
+
     database.push({ item });
+
     let items = [];
+
     return database.on(
       "value",
       snapshot => {
         snapshot.forEach(item => {
           items.push({
             id: item.key,
-            items: item.values().item
+            items: item.val().item
           });
         });
+
         res.status(200).json(items);
       },
       error => {
