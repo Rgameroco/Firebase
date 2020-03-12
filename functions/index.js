@@ -7,7 +7,10 @@ admin.initializeApp();
 const database = admin.database().ref("/items");
 
 exports.helloWorld = functions.https.onRequest((request, response) => {
-  response.send("Hello from a Severless Database!");
+  response.send("Hello beto!!!");
+});
+exports.helloTio = functions.https.onRequest((request, response) => {
+  response.send("Hola tio quiero la bici!!!");
 });
 
 exports.addItem = functions.https.onRequest((req, res) => {
@@ -17,7 +20,7 @@ exports.addItem = functions.https.onRequest((req, res) => {
         message: "Not allowed"
       });
     }
-    console.log(req.body);
+    console.log("cuerpo de la petición", req.body);
 
     const item = req.body.item;
 
